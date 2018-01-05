@@ -74,10 +74,10 @@
     function operate(a, b, operation) {
         a = parseFloat(a);
         b = parseFloat(b);
-        if (operation === '+') return a + b;
-        if (operation === '-')  return a - b;
-        if (operation === '*') return a * b;
-        if (operation === '/') return a / b;
+        if (operation === '+') { return a + b };
+        if (operation === '-') { return a - b };
+        if (operation === '×') { return a * b };
+        if (operation === '÷') { return a / b };
         if (operation === '^') return Math.pow(a, b);
     }
 
@@ -111,26 +111,25 @@
         { 'Id': 'lb', 'Property': [2.20462, 'Pound (lb)'] },
         { 'Id': 't' , 'Property': [0.00110231, 'Ton (t)'] }
     ];
+    var time = [
+        { 'Id': 'd', 'Property': [1.0, 'Day (d)'] },
+        { 'Id': 'h', 'Property': [24, 'Hour (h)'] },
+        { 'Id': 'min', 'Property': [1440, 'Minute (min)'] },
+        { 'Id': 'sec', 'Property': [86400, 'Second (sec)'] },
+        { 'Id': 'w', 'Property': [0.142857, 'Week (w)'] },
+        { 'Id': 'm', 'Property': [0.0328767, 'Month (m)'] },
+        { 'Id': 'yr', 'Property': [0.00273973, 'Year (yr)'] }
+    ];
+    var volume = [
+        { 'Id': 'l', 'Property': [1.0, 'Liter (L)'] },
+        { 'Id': 'mL', 'Property': [1000, 'Milliliter (mL)'] },
+        { 'Id': 'gal', 'Property': [0.264172, 'Gallon (gal)'] }
+    ];
     // need to fix calculation
     var temperature = [
         { 'Id': 'f', 'Property': [1.0, 'Farenheit (F)'] },
         { 'Id': 'c', 'Property': [1.0, 'Celcius (C)'] }
     ];
-    var time = [
-        { 'Id': 'd',   'Property': [1.0, 'Day (d)'] },
-        { 'Id': 'h',   'Property': [24, 'Hour (h)'] },
-        { 'Id': 'min', 'Property': [1440, 'Minute (min)'] },
-        { 'Id': 'sec', 'Property': [86400, 'Second (sec)'] },
-        { 'Id': 'w',   'Property': [0.142857, 'Week (w)'] },
-        { 'Id': 'm',   'Property': [0.0328767, 'Month (m)'] },
-        { 'Id': 'yr',  'Property': [0.00273973, 'Year (yr)'] }
-    ];
-    var volume = [
-        { 'Id': 'l',   'Property': [1.0, 'Liter (L)'] },
-        { 'Id': 'mL',  'Property': [1000, 'Milliliter (mL)'] },
-        { 'Id': 'gal', 'Property': [0.264172, 'Gallon (gal)'] }
-    ];
-
 
 
     // when user switches conversion type
