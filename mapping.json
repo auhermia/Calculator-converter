@@ -1,0 +1,98 @@
+{
+  "length": [
+    {
+      "Id": "m",
+      "Property": [ 1.0, "Meter (m)" ]
+    },
+    {
+      "Id": "cm",
+      "Property": [ 100, "Centimeter (cm)" ]
+    },
+    {
+      "Id": "km",
+      "Property": [ 0.001, "Kilometer (km)" ]
+    },
+    {
+      "Id": "in",
+      "Property": [ 39.36996, "Inch (in)" ]
+    },
+    {
+      "Id": "ft",
+      "Property": [ 3.28084, "Foot (ft)" ]
+    },
+    {
+      "Id": "yd",
+      "Property": [ 1.09361, "Yard (yd)" ]
+    },
+    {
+      "Id": "mi",
+      "Property": [ 0.000621371, "Mile (mi" ]
+    }
+  ],
+  "mass": [
+    {
+      "Id": "kg",
+      "Property": [ 1.0, "Kilogram (kg)" ]
+    },
+    {
+      "Id": "g",
+      "Property": [ 1000, "Gram (g)" ]
+    },
+    {
+      "Id": "oz",
+      "Property": [ 35.274, "Ounce (oz)" ]
+    },
+    {
+      "Id": "lb",
+      "Property": [ 2.20462, "Pound (lb)" ]
+    },
+    {
+      "Id": "t",
+      "Property": [ 0.00110231, "Ton (t)" ]
+    }
+  ],
+  "temperature": [
+    {
+      "Id": "f",
+      "Property": [ 1.0, "Farenheit (f)" ]
+    },
+    {
+      "Id": "c",
+      "Property": [ 1.0, "Celcius (c)" ]
+    }
+    ],
+    "time",
+    [
+      {
+        "Id": "d",
+        "Property": [ 1.0, "Day (d)" ]
+      },
+      {
+        "Id": "h",
+        "Property": [ 24, "Hour (h)" ]
+      },
+      {
+        "Id": "min",
+        "Property": [ 1440, "Minute (min)" ]
+      },
+      {
+        "Id": "sec",
+        "Property": [ 86400, "Second (sec)" ]
+      }
+    ],
+    "volume",
+    [
+      {
+        "Id": "l",
+        "Property": [ 1.0, "Liter (L)" ]
+      },
+      {
+        "Id": "mL",
+        "Property": [ 1000, "Milliliter (mL)" ]
+      },
+      {
+        "Id": "gal",
+        "Property": [ 0.264172, "Gallon (gal)" ]
+      }
+    ]
+}
