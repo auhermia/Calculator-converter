@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    console.log("test");
 
     /* ================================================ *
     *                   CALCULATOR			            *
@@ -7,18 +8,22 @@
     var value2 = "";
     var operator = "";
     var result = 0;
-
+    var calcFirst = true;
+    
     var topDisplay = $("#topdisplay");
     topDisplay.text('');
 
     var bottomDisplay = $("#bottomdisplay");
     bottomDisplay.text('0');
 
-
     // retrieves text of num key entered and display on display
     $('.num').click(function () {
         value1 += $(this).text();
         bottomDisplay.text(value1);
+        if (operator == '') {
+            calcFirst = true;
+            topDisplay.text('');
+        }
     });
 
     $('#signop').click(function () {
@@ -28,16 +33,22 @@
 
     // square root
     $('#sqrt').click(function () {
+        if (calcFirst == false) {
+            value1 = result;
+        }
         value1n = parseFloat(value1);
         result = Math.sqrt(value1n);
         topDisplay.text($(this).text() + value1);
         bottomDisplay.text(result);
         value1 = "";
     });
-
+    
     // + - * / ^
     $(".operator").not('#equal,#signop,#sqrt').click(function () {
         operator = $(this).text();
+        if (calcFirst == false) {
+            value1 = result;
+        }
         topDisplay.text(value1 + " " + operator);
         bottomDisplay.text("");
         value2 = value1;
@@ -50,45 +61,25 @@
 
         topDisplay.text(value2 + " " + operator + " " + value1);
 
-        //determine decimal length
-        function findLength(val) {
-            var valLength = "";
-            if (val != Math.floor(val)) {
-                valLength = val.split('.')[1].length;
-                return valLength;
-            }
-            else
-                valLength = "0";
-            return parseFloat(valLength);
-        }
-        var length1 = findLength(value1);
-        var length2 = findLength(value2);
-
-        valLength = (length1 > length2) ? length1 : length2;
-
-        //value#numeric
-        value1n = parseFloat(value1);
-        value2n = parseFloat(value2);
-
-        if (operator === '+') {
-            result = value2n + value1n;
-        } else if (operator === '-') {
-            result = (value2n - value1n).toFixed(valLength);
-        } else if (operator === '×') {
-            result = value2n * value1n;
-        } else if (operator === '÷') {
-            result = value2n / value1n;
-        } //÷
-        else {
-            result = Math.pow(value2n, value1n);
-        }
+        result = operate(value2, value1, operator);
 
         bottomDisplay.text(result);
-        console.log(typeof result);
 
         value1 = "";
         value2 = "";
+        operator = "";
+        calcFirst = false;
     });
+
+    function operate(a, b, operation) {
+        a = parseFloat(a);
+        b = parseFloat(b);
+        if (operation === '+') return a + b;
+        if (operation === '-')  return a - b;
+        if (operation === '*') return a * b;
+        if (operation === '/') return a / b;
+        if (operation === '^') return Math.pow(a, b);
+    }
 
     // Clear
     $('#clear').click(function () {
@@ -96,6 +87,7 @@
         value2 = "";
         bottomDisplay.text('0');
         topDisplay.empty();
+        calcFirst = true;
     });
 
     /* ================================================ *
@@ -154,11 +146,6 @@
         $('#fromUnit, #toUnit').html('');
         $('#from, #to').val('');
         
-        //for (var i = 0; i < document.getElementById("type").length; i++) {
-        //    if ( type.find('option:selected').attr('id') == mapping.findIndex(i) ){
-        //        appendOption(mapping[i]);
-        //    }
-        //}
         if (type.val() == "Mass") {
             appendOption(mass);
         } else if (type.val() == "Temperature") {
@@ -176,11 +163,6 @@
     // Conversions
     // ex: yd to in: yd to base, base to in
     //               yd to base = inverse of base to yd
-
-   // -------------------------------------------------------------------
-    var mapping = [length, mass, temperature, time, volume];
-    //console.log(mapping);
-    // -------------------------------------------------------------------
 
     $('#convert_equal').click(function () {
         var fromUnit = document.getElementById("fromUnit").value;
@@ -285,81 +267,3 @@
     });
 
 }); // end of script
-
-
-
-
-
-
-    /*function defineConvConst(c) {
-        return function (a) {
-            return a * c
-        }
-    }
-    function defineConvTemp() {
-
-    }
-    var mappings = {
-        'm' : ['cm', defineConvConst(100)], // function (a, c) { a * c } ], //a * (1 / 100)
-        'm': ['dm', defineConvConst(10)], // function (a, c) { a * c } ], // a * (1 / 10)
-        'm': ConstConversion('dm', 10),
-        'lb': ['kg', defineConvConst(5)],
-        'f': ['c', defineConvTemp(9 / 5 + 32)],
-        'f': TempConversion('c', ...)
-        'c' : ['f', helloUS(-32 * 5 / 9)]
-    
-    }
-    class Conversion () {
-        function execute(a) {
-            return a
-        }
-    }
-    class ConstConversion : Conversion (c) {
-        this.c = c
-        function execute(a) {
-           return a * c
-        }
-    }
-    class TempConversion : Conversion () {
-        
-    }
-
-    function convert(a, b, v) {
-        var conversion = mappings[a][b]
-        conversion.execute(v)
-    }
-    
-
-    function renderSourceUnits() {
-        mappings.forEach(function (k, v) {
-            $('dropdown1').setValu
-            if (v.bidirectional()) {
-
-            }
-        }
-    }
-    function renderDestUnits() {
-        mappings[sourceUnit].forEach(function (k, v) {
-            $('dropdown2').setVal
-        })
-    } */
-
-
-/* to do
-+- sign --- must have a value before using
-decimal / syntax error msg
-clear - x
-sqrt / x^2
-*/
-
-
-    //var type = [];
-    //var unit = [];
-    //var factor = [];
-
-    //type[0] = "length";
-    //unit[0] = ["meter (m)", "centimeter (cm)", "millimeter (mm)", "kilometer (km)",
-    //    "inch (in)", "foot (ft)", "yard (yd)", "mile (mi)"];
-    //factor[0] = [1, .01, .001, 1000, 39.3701, 3.28084, 1.09361, 0.000621371];
-
-    //console.log(2 * (unit[1]*factor[1]));
