@@ -1,19 +1,5 @@
 ﻿$(document).ready(function () {
 
-    // loading up json file
-    window.onload = function () {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            // readystate 4 -- request is complete
-            if (xhr.onreadystatechange == 4 && http.status == 200) {
-                console.log(JSON.parse(xhr.response));
-            }
-        };
-        xhr.open('GET', 'mapping.json', false); //async for now
-        xhr.send(); // tell xhr to go get data;
-    };
-    
-
     /* ================================================ *
     *                   CALCULATOR			            *
     * ================================================= */
@@ -142,7 +128,7 @@
         else if (key === 47) { $("#divide").click(); }
         else if (key === 94) { $("#expo").click(); }
         else if (key === 27) { $("#clear").click(); } // fix
-        else if (key === 61 || key === 13) { $("#equal").click(); }
+        else if (key === 61 || key === 13) { $("#equal").click(); } // return fix
         else { return false; }
     });
 
@@ -150,7 +136,7 @@
     *                   UNIT CONVERSION		            *
     * ================================================= */
 
-    /*
+    
     // define mapping
     var area = [
         { 'Id': 'm2',  'Property': [1.0, 'Square meter (m^2)'] },
@@ -196,9 +182,7 @@
         { 'Id': 'f', 'Property': [1.0, 'Farenheit (F)'] },
         { 'Id': 'c', 'Property': [1.0, 'Celcius (C)'] }
     ];
-    */
-
-   
+       
 
     // when user switches conversion type
     function appendOption(convert_type) {
@@ -326,10 +310,13 @@
         }
         // temp
         else {
-            if (fromUnit == toUnit) { toValue = fromValue; }
-            else if (toUnit == 'f') { toValue = (fromValue - 32) * 5 / 9; }
-            else { toValue = (fromValue * 5 / 9) - 32; }
-            console.log(typeof toValue);
+            if (toUnit == 'f' && fromUnit == 'c') { toValue = (fromValue * 9 / 5) + 32; }
+            else if (toUnit == 'c' && fromUnit == 'f') { toValue = (fromValue - 32) * 5 / 9; }
+            else { toValue = fromValue; }
+            console.log(fromUnit);
+            console.log(fromValue);
+            console.log(toUnit);
+            console.log(toValue);
             toValue = toValue.toFixed(1);
         }
         $('#to').val(toValue);
@@ -356,3 +343,25 @@
     });
 
 }); // end of script
+
+
+/*
+// to do 1/8/17
+
+
+// loading up json file
+window.onload = function () {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        // readystate 4 -- request is complete
+        if (xhr.readyState == 4 && http.status == 200) {
+            console.log(JSON.parse(xhr.response));
+            console.log("test");
+        }
+    };
+    xhr.open('GET', 'mapping.json', true); //async for now
+    xhr.send(); // tell xhr to go get data;
+    console.log(xhr);
+};
+
+*/
