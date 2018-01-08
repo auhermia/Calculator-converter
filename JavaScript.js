@@ -1,5 +1,18 @@
 ﻿$(document).ready(function () {
-    console.log("test");
+
+    // loading up json file
+    window.onload = function () {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            // readystate 4 -- request is complete
+            if (xhr.onreadystatechange == 4 && http.status == 200) {
+                console.log(JSON.parse(xhr.response));
+            }
+        };
+        xhr.open('GET', 'mapping.json', false); //async for now
+        xhr.send(); // tell xhr to go get data;
+    };
+    
 
     /* ================================================ *
     *                   CALCULATOR			            *
@@ -123,12 +136,12 @@
         else if (key === 56) { $("#8").click(); }
         else if (key === 57) { $("#9").click(); }
         else if (key === 42) { $("#multiply").click(); }
-        else if (key === 43) { $("#add").click(); }
+        else if (key === 43) { $("#add").click(); }     //fix
         else if (key === 45) { $("#minus").click(); }
         else if (key === 46) { $("#decimal").click(); }
         else if (key === 47) { $("#divide").click(); }
         else if (key === 94) { $("#expo").click(); }
-        else if (key === 27) { $("#clear").click(); } // doesn't work'
+        else if (key === 27) { $("#clear").click(); } // fix
         else if (key === 61 || key === 13) { $("#equal").click(); }
         else { return false; }
     });
@@ -137,6 +150,7 @@
     *                   UNIT CONVERSION		            *
     * ================================================= */
 
+    /*
     // define mapping
     var area = [
         { 'Id': 'm2',  'Property': [1.0, 'Square meter (m^2)'] },
@@ -182,7 +196,9 @@
         { 'Id': 'f', 'Property': [1.0, 'Farenheit (F)'] },
         { 'Id': 'c', 'Property': [1.0, 'Celcius (C)'] }
     ];
+    */
 
+   
 
     // when user switches conversion type
     function appendOption(convert_type) {
@@ -255,7 +271,7 @@
                 return unit.Property[0];
             });
 
-            var toCoeff = mass.filter(function (unit) {
+            var toCoeff = area.filter(function (unit) {
                 return unit.Id == toUnit;
             }).map(function (unit) {
                 return unit.Property[0];

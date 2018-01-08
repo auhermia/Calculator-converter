@@ -26,7 +26,37 @@
     },
     {
       "Id": "mi",
-      "Property": [ 0.000621371, "Mile (mi" ]
+      "Property": [ 0.000621371, "Mile (mi)" ]
+    }
+  ],
+  "area": [
+    {
+      "Id": "m2",
+      "Property": [ 1.0, "Square meter (m^2)" ]
+    },
+    {
+      "Id": "cm2",
+      "Property": [ 10000, "Square centimeter (cm^2)" ]
+    },
+    {
+      "Id": "km2",
+      "Property": [ 0.000001, "Square kilometer (km^2)" ]
+    },
+    {
+      "Id": "in2",
+      "Property": [ 1550, "Square inch (in^2)" ]
+    },
+    {
+      "Id": "ft2",
+      "Property": [ 10.7639, "Square foot (ft^2)" ]
+    },
+    {
+      "Id": "mi2",
+      "Property": [ 3.861e-7, "Square mile (mi^2)" ]
+    },
+    {
+      "Id": "acre",
+      "Property": [ 0.000247105, "Acre (acre)" ]
     }
   ],
   "mass": [
@@ -60,39 +90,37 @@
       "Id": "c",
       "Property": [ 1.0, "Celcius (c)" ]
     }
-    ],
-    "time",
-    [
-      {
-        "Id": "d",
-        "Property": [ 1.0, "Day (d)" ]
-      },
-      {
-        "Id": "h",
-        "Property": [ 24, "Hour (h)" ]
-      },
-      {
-        "Id": "min",
-        "Property": [ 1440, "Minute (min)" ]
-      },
-      {
-        "Id": "sec",
-        "Property": [ 86400, "Second (sec)" ]
-      }
-    ],
-    "volume",
-    [
-      {
-        "Id": "l",
-        "Property": [ 1.0, "Liter (L)" ]
-      },
-      {
-        "Id": "mL",
-        "Property": [ 1000, "Milliliter (mL)" ]
-      },
-      {
-        "Id": "gal",
-        "Property": [ 0.264172, "Gallon (gal)" ]
-      }
-    ]
+  ],
+  "time": [
+    {
+      "Id": "d",
+      "Property": [ 1.0, "Day (d)" ]
+    },
+    {
+      "Id": "h",
+      "Property": [ 24, "Hour (h)" ]
+    },
+    {
+      "Id": "min",
+      "Property": [ 1440, "Minute (min)" ]
+    },
+    {
+      "Id": "sec",
+      "Property": [ 86400, "Second (sec)" ]
+    }
+  ],
+  "volume": [
+    {
+      "Id": "l",
+      "Property": [ 1.0, "Liter (L)" ]
+    },
+    {
+      "Id": "mL",
+      "Property": [ 1000, "Milliliter (mL)" ]
+    },
+    {
+      "Id": "gal",
+      "Property": [ 0.264172, "Gallon (gal)" ]
+    }
+  ]
 }
