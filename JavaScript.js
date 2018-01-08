@@ -24,6 +24,9 @@
             calcFirst = true;
             topDisplay.text('');
         }
+        // allow only 1 instance of decimal
+        let decimal = true;
+        if ($(this).text() == '.') { decimal = false; }
     });
 
     $('#signop').click(function () {
@@ -59,6 +62,22 @@
 
         // check values for incorrect syntax -!!!!!!!!!!!
 
+        function findLength(val) {
+            var valLength = "";
+            if (val != Math.floor(val)) {
+                valLength = val.toString().split('.')[1].length;
+                return valLength;
+                console.log(typeof valLength);
+            }
+            else
+                valLength = "0";
+            return parseFloat(valLength);
+        }
+        var length1 = findLength(value1);
+        var length2 = findLength(value2);
+
+        valLength = (length1 > length2) ? length1 : length2;
+
         topDisplay.text(value2 + " " + operator + " " + value1);
 
         result = operate(value2, value1, operator);
@@ -90,11 +109,44 @@
         calcFirst = true;
     });
 
+    // keypress... can't do +/- (-1 - 1 no bueno) or esc
+    $(document).keypress(function (e) {
+        var key = event.which;
+        if      (key === 48) { $("#0").click(); }
+        else if (key === 49) { $("#1").click(); }
+        else if (key === 50) { $("#2").click(); }
+        else if (key === 51) { $("#3").click(); }
+        else if (key === 52) { $("#4").click(); }
+        else if (key === 53) { $("#5").click(); }
+        else if (key === 54) { $("#6").click(); }
+        else if (key === 55) { $("#7").click(); }
+        else if (key === 56) { $("#8").click(); }
+        else if (key === 57) { $("#9").click(); }
+        else if (key === 42) { $("#multiply").click(); }
+        else if (key === 43) { $("#add").click(); }
+        else if (key === 45) { $("#minus").click(); }
+        else if (key === 46) { $("#decimal").click(); }
+        else if (key === 47) { $("#divide").click(); }
+        else if (key === 94) { $("#expo").click(); }
+        else if (key === 27) { $("#clear").click(); } // doesn't work'
+        else if (key === 61 || key === 13) { $("#equal").click(); }
+        else { return false; }
+    });
+
     /* ================================================ *
     *                   UNIT CONVERSION		            *
     * ================================================= */
 
     // define mapping
+    var area = [
+        { 'Id': 'm2',  'Property': [1.0, 'Square meter (m^2)'] },
+        { 'Id': 'cm2', 'Property': [10000, 'Square centimeter (cm^2)'] },
+        { 'Id': 'km2', 'Property': [0.000001, 'Square kilometer (km^2)'] },
+        { 'Id': 'in2', 'Property': [1550, 'Square inch (in^2)'] },
+        { 'Id': 'ft2', 'Property': [10.7639, 'Square foot (ft^2)'] },
+        { 'Id': 'mi2', 'Property': [3.861e-7, 'Square mile (mi^2)'] },
+        { 'Id': 'acre', 'Property': [0.000247105, 'Acre (acre)'] }
+    ];
     var length = [
         { 'Id': 'm' , 'Property': [1.0, 'Meter (m)'] },
         { 'Id': 'cm', 'Property': [100, 'Centimeter (cm)'] },
@@ -153,8 +205,17 @@
             appendOption(time);
         } else if (type.val() == "Volume") {
             appendOption(volume);
+        } else if (type.val() == "Area") {
+            appendOption(area);
         } else {
             appendOption(length);
+        }
+    });
+
+    // allow only numeric in input
+    $("#from").keypress(function (e) {
+        if (e.which != 8 && e.which != 46 && (e.which < 48 || e.which > 57)){
+            return false;
         }
     });
 
@@ -162,6 +223,7 @@
     // Conversions
     // ex: yd to in: yd to base, base to in
     //               yd to base = inverse of base to yd
+
 
     $('#convert_equal').click(function () {
         var fromUnit = document.getElementById("fromUnit").value;
@@ -179,6 +241,21 @@
             });
 
             var toCoeff = length.filter(function (unit) {
+                return unit.Id == toUnit;
+            }).map(function (unit) {
+                return unit.Property[0];
+            });
+            toValue = fromValue * (1 / fromCoeff) * toCoeff;
+        }
+        // area
+        else if ($('#type').val() == "Area") {
+            var fromCoeff = area.filter(function (unit) {
+                return unit.Id == fromUnit;
+            }).map(function (unit) {
+                return unit.Property[0];
+            });
+
+            var toCoeff = mass.filter(function (unit) {
                 return unit.Id == toUnit;
             }).map(function (unit) {
                 return unit.Property[0];
@@ -212,7 +289,7 @@
                 return unit.Id == toUnit;
             }).map(function (unit) {
                 return unit.Property[0];
-                });
+            });            
             // need to fix rounding for units
             toValue = (fromValue * (1 / fromCoeff) * toCoeff).toFixed(1);
         }
@@ -233,16 +310,14 @@
         }
         // temp
         else {
-            if (fromUnit == 'f') { toValue = (fromValue - 32) * 5 / 9; }
+            if (fromUnit == toUnit) { toValue = fromValue; }
+            else if (toUnit == 'f') { toValue = (fromValue - 32) * 5 / 9; }
             else { toValue = (fromValue * 5 / 9) - 32; }
             console.log(typeof toValue);
             toValue = toValue.toFixed(1);
-            console.log(typeof toValue);
-
         }
         $('#to').val(toValue);
     });
-
 
     /* ================ MAIN NAVIGATION ================ */
 
@@ -257,7 +332,6 @@
     calcbutton.click(function () {
         calculator.show();
         converter.hide();
-        console.log("click");
     });
     convertbutton.click(function () {
         calculator.hide();
