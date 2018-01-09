@@ -122,7 +122,7 @@
         else if (key === 56) { $("#8").click(); }
         else if (key === 57) { $("#9").click(); }
         else if (key === 42) { $("#multiply").click(); }
-        else if (key === 43) { $("#add").click(); }     //fix
+        else if (key === 43) { $("#plus").click(); }     //fix
         else if (key === 45) { $("#minus").click(); }
         else if (key === 46) { $("#decimal").click(); }
         else if (key === 47) { $("#divide").click(); }
